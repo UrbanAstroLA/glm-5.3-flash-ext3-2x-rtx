@@ -145,6 +145,12 @@ regression gate in `scripts/`; `--expect-unpatched` reproduces the defect on v0.
   is copied into the persistent per-group slot-mapping buffer so FULL CUDA graph replays read it. With
   positions present, the B12X sparse-MLA metadata builder takes causal lengths from `positions + 1` for
   batches that are not pure single-token decode, as upstream does. Gate: `scripts/test-kpool-tail-positions.py`.
+- `port-kpool-unaligned-chunk-glm53.py` (requires `port-kpool-tail-positions-glm53.py` and refuses, writing
+  nothing, without it): the prefill index-K writer pools batch rows t-3..t and assumed pool-aligned chunk
+  starts, which the scheduler does not guarantee (budget minus draft slots, decode rows and other requests in
+  the step). A pool straddling an unaligned start is now completed from the request's own tail ring, which
+  is position-addressed only with the tail-positions port. Rows without a tail slot keep the old rule.
+  Gate: `scripts/test-kpool-unaligned-chunk.py`.
 
 ## v0.8.0 runtime changes
 
