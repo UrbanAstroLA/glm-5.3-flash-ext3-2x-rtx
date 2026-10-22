@@ -132,6 +132,16 @@ v0.8.0 fail the four upstream regression tests for them in `tests/kernels/test_k
   token ids fell from 0.066 to 0.010 for positions below 2,044, and from 0.031 to 0.019 beyond 2,048, where tokens
   decoded under the bug still sit in the cache.
 
+## Correctness fixes after v0.9.1
+
+Each script edits the installed vLLM tree at the end of the second patch chain, validates every anchor before
+writing, compiles the result, replaces files atomically and is a no-op when already applied. Each has a CPU
+regression gate in `scripts/`; `--expect-unpatched` reproduces the defect on v0.9.1.
+
+- `port-router-fp32-out-sm12x.py` (upstream vllm-project/vllm#54048): GateLinear's fp32-output router GEMM is
+  enabled on compute capability 12.x, where the router previously ran in bf16 and cast the result.
+  Gate: `scripts/test-router-fp32-out-sm12x.py`.
+
 ## v0.8.0 runtime changes
 
 v0.8.0 changes the served default to Brandon's uniform-K4 checkpoint and
