@@ -132,6 +132,17 @@ v0.8.0 fail the four upstream regression tests for them in `tests/kernels/test_k
   token ids fell from 0.066 to 0.010 for positions below 2,044, and from 0.031 to 0.019 beyond 2,048, where tokens
   decoded under the bug still sit in the cache.
 
+## Correctness fixes after v0.9.1
+
+Each script edits the installed vLLM tree at the end of the second patch chain, validates every anchor before
+writing, compiles the result, replaces files atomically and is a no-op when already applied. Each has a CPU
+regression gate in `scripts/`; `--expect-unpatched` reproduces the defect on v0.9.1.
+
+- `port-kpool-col511-lowest-glm53.py`: the indexer keeps 511 of the 512 pools its top-k selects and no top-k
+  route orders its output, so the discarded pool was whichever pool sat in column 511. Decode (any DCP size)
+  and prefill (DCP 1) now swap each row's lowest-scoring selected pool into the last column before the slice.
+  The selected set is unchanged; upstream keeps all 512 pools instead. Gate: `scripts/test-kpool-col511-lowest.py`.
+
 ## v0.8.0 runtime changes
 
 v0.8.0 changes the served default to Brandon's uniform-K4 checkpoint and
