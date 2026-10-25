@@ -1,0 +1,23 @@
+{
+ "expect": "patched",
+ "results": [
+  {
+   "name": "tail-positions: MambaHybridModelState passes positions to build_attn_metadata",
+   "holds": true,
+   "met": true,
+   "detail": ""
+  },
+  {
+   "name": "tail-positions: rows on the null block get PAD, never block 0's ring",
+   "holds": true,
+   "met": true,
+   "detail": "(null-block rows -> [-1, -1])"
+  },
+  {
+   "name": "tail-positions: the circular mapping is written into the persistent slot-mapping buffer",
+   "holds": true,
+   "met": true,
+   "detail": "(same storage: True)"
+  }
+ ]
+}

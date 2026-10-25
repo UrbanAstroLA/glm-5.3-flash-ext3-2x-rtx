@@ -31,6 +31,39 @@ This recipe consumes finished Hugging Face target and draft checkpoints and comp
 | Dynamic-MTP graph fix | vLLM PR `#49652`, ported onto the pinned vLLM commit |
 | Runtime stack | Torch 2.13, CUDA 13, CUTLASS DSL 4.6.2 |
 
+## Published v0.9.2 release artifacts
+
+The v0.9.2 image is built from the combined merge commit
+`e7debee1fc3b3d0e75b3a2ede279e6be164c4c3e`. The release follow-up updates the launcher and
+documentation; no image input changed after that commit. PR #7 is applied
+before its dependent PR #11; the independent ports follow them.
+
+| Artifact | Immutable identity |
+|---|---|
+| Image index | `ghcr.io/tpurtell/glm-5.3-flash-exl3-4bpw-2x-rtx@sha256:ea0430aa772e8cedfef1cdf80c30f4962ba43bb0991ac329950067ba1375f3e2` |
+| Linux/amd64 manifest | `sha256:c20aae811a026b7e31c8da35114765a57115c15e9d835038f01f161fc44d3c45` |
+| Image source revision | `e7debee1fc3b3d0e75b3a2ede279e6be164c4c3e` |
+
+The combined image build, embedded compatibility/structured-output checks,
+and five supplied CPU regression gates passed. No local GPU serving or
+benchmark runs were performed for this release. Hardware evidence comes
+from the contributor's SM120/K3.25 validation, as cited separately in the
+[release notes](benchmarks/v0.9.2/RELEASE-NOTES.md). K4, DCP2 on GPU, AMD,
+and SM121 hardware were not requalified. The v0.8.0 performance tables
+remain historical results.
+
+v0.9.2 file hashes:
+
+| File | SHA-256 |
+|---|---|
+| `Dockerfile` | `0ef12f9b46ac4fc9b5112b64e4c49eaf0f473e064255f4e8dd36717f847aea7e` |
+| `start.sh` | `7e8e7d0f723d8c6be97f5527cd616769d485fcf1ff8f620420f81a3ea0339b74` |
+| `patches/port-kpool-tail-positions-glm53.py` | `67b66aa86d5f5ab25893400fb08c48a067c000a118d9f82dd10911adc8537b1e` |
+| `patches/port-kpool-unaligned-chunk-glm53.py` | `e10649b868ef7b65c1425d353ab73ec3b7980b31f8caf3252abcd7cd63eda7ce` |
+| `patches/port-kpool-col511-lowest-glm53.py` | `e9d7b7d98a2f6ece3638c1977c45b85f176b6d7ab15de0f44f7a69e308e7fb73` |
+| `patches/port-router-fp32-out-sm12x.py` | `d12246cfe72db6cbfd77dd5477f84e98709b94f3b511a5e1a445f3d7f6389efd` |
+| `patches/port-exl3-routed-swiglu-limit.py` | `4c27541468f7ff3c7934c0fcb002bbc78a4d4d35ce6c1615c03778b0f8eccac5` |
+
 ## Published v0.9.1 release artifacts
 
 The v0.9.1 image is built from PR #6 merge commit

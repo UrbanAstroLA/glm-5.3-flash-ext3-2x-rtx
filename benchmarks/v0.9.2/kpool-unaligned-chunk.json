@@ -1,0 +1,17 @@
+{
+ "expect": "patched",
+ "results": [
+  {
+   "name": "unaligned-chunk: every pool completed in the chunk holds the request's own four tokens",
+   "holds": true,
+   "met": true,
+   "detail": ""
+  },
+  {
+   "name": "unaligned-chunk: the prefill call site passes the tail ring to the writer",
+   "holds": true,
+   "met": true,
+   "detail": ""
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+{
+ "expect": "patched",
+ "results": [
+  {
+   "name": "router: GateLinear(out_dtype=fp32) uses the fp32-output GEMM on SM120 and SM121",
+   "holds": true,
+   "met": true,
+   "detail": "(SM120 True, SM121 True, SM90 True)"
+  }
+ ]
+}

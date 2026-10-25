@@ -1,0 +1,17 @@
+{
+ "expect": "patched",
+ "results": [
+  {
+   "name": "col511 decode: column 511 holds each row's lowest-scoring selected pool, set unchanged",
+   "holds": true,
+   "met": true,
+   "detail": ""
+  },
+  {
+   "name": "col511 prefill: a 512-candidate row discards its lowest-scoring pool, not pool 511",
+   "holds": true,
+   "met": true,
+   "detail": "(column 511 holds pool 20)"
+  }
+ ]
+}

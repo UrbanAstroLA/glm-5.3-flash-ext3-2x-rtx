@@ -1,0 +1,11 @@
+{
+ "expect": "patched",
+ "results": [
+  {
+   "name": "swiglu-limit: every B12x Caps(...) and compile_mixed_trellis(...) call passes swiglu_limit",
+   "holds": true,
+   "met": true,
+   "detail": "(1/1 Caps, 1/1 compile_mixed_trellis)"
+  }
+ ]
+}

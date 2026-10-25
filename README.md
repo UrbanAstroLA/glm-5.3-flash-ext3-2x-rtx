@@ -8,6 +8,12 @@ This recipe serves [`brandonmusic/GLM-5.3-Flash-tr3-4bpw`](https://huggingface.c
 (formerly `GLM-5.3-Flash-EXL3-4bpw`) with the [`incoai/GLM-5.3-Flash-DFlash2`](https://huggingface.co/incoai/GLM-5.3-Flash-DFlash2)
 drafter on two PCIe-connected SM120 GPUs.
 
+`v0.9.2` fixes request ownership of kpool tail caches, pooling across unaligned
+prefill chunks, and removal of the lowest-scoring selected pool. It also restores
+FP32 router output on SM12x and passes the model's SwiGLU limit to routed experts.
+See the [release notes](benchmarks/v0.9.2/RELEASE-NOTES.md) for contributor GPU
+evidence, CPU checks, and validation limits. K4 was not requalified for this release.
+
 `v0.9.1` keeps the newest one to three tokens in DCP1 sparse-MLA selections
 below 2,044 tokens of context. This fixes short-context decode and early
 sparse-prefill rows under the default MLA ownership profile. See the
@@ -268,8 +274,9 @@ v0.8.0; their receipts under `benchmarks/v0.7.0-k325/` describe v0.7.x.
 
 ## Thank you
 
-Thanks to **Michael M. (@UrbanAstroLA)** for the kpool cache fixes and the
-DCP1 sparse-MLA tail investigation, reproductions, and validation.
+Thanks to **Michael M. (@UrbanAstroLA / AstroFella)** for the kpool cache fixes,
+DCP1 sparse-MLA tail investigation, router precision and routed-expert activation
+fixes, reproductions, and validation.
 
 Huge thanks to **Brandon** for the K4 quant, his teacher-logit dataset and KLD
 receipts, and his public recipe. Thanks to **Inco AI / Z-Lab** for DFlash2,

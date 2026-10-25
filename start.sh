@@ -25,7 +25,7 @@ else
   MODEL_MOUNT_TARGET=/model-repo
   MODEL_CONTAINER_DIR="/model-repo/snapshots/${MODEL_REVISION}"
 fi
-IMAGE="${IMAGE:-ghcr.io/tpurtell/glm-5.3-flash-exl3-4bpw-2x-rtx:v0.9.1}"
+IMAGE="${IMAGE:-ghcr.io/tpurtell/glm-5.3-flash-exl3-4bpw-2x-rtx:v0.9.2}"
 CONTAINER_NAME="${CONTAINER_NAME:-glm53-flash-exl3-b12x-vllm}"
 SERVED_MODEL_NAME="${SERVED_MODEL_NAME:-${MODEL_ID}}"
 PORT="${PORT:-8001}"
