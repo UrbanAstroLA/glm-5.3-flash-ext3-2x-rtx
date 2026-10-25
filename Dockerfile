@@ -108,6 +108,7 @@ COPY patches/port-dcp1-kpool-tail-glm53.py /tmp/port-dcp1-kpool-tail-glm53.py
 COPY patches/port-kpool-tail-positions-glm53.py /tmp/port-kpool-tail-positions-glm53.py
 COPY patches/port-kpool-unaligned-chunk-glm53.py /tmp/port-kpool-unaligned-chunk-glm53.py
 COPY patches/port-kpool-col511-lowest-glm53.py /tmp/port-kpool-col511-lowest-glm53.py
+COPY patches/port-router-fp32-out-sm12x.py /tmp/port-router-fp32-out-sm12x.py
 RUN python3 /tmp/port-exl3-glm53.py \
     /usr/local/lib/python3.12/dist-packages/vllm \
  && python3 /tmp/port-exl3-ep-glm53.py \
@@ -213,6 +214,8 @@ RUN python3 /tmp/port-dflash2-glm53.py \
  && python3 /tmp/port-kpool-unaligned-chunk-glm53.py \
       /usr/local/lib/python3.12/dist-packages/vllm \
  && python3 /tmp/port-kpool-col511-lowest-glm53.py \
+      /usr/local/lib/python3.12/dist-packages/vllm \
+ && python3 /tmp/port-router-fp32-out-sm12x.py \
       /usr/local/lib/python3.12/dist-packages/vllm \
  && python3 -m compileall -q /usr/local/lib/python3.12/dist-packages/vllm
 

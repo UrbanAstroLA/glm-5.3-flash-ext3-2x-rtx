@@ -157,6 +157,10 @@ regression gate in `scripts/`; `--expect-unpatched` reproduces the defect on v0.
   and prefill (DCP 1) now swap each row's lowest-scoring selected pool into the last column before the slice.
   The selected set is unchanged; upstream keeps all 512 pools instead. Gate: `scripts/test-kpool-col511-lowest.py`.
 
+- `port-router-fp32-out-sm12x.py` (upstream vllm-project/vllm#54048): GateLinear's fp32-output router GEMM is
+  enabled on compute capability 12.x, where the router previously ran in bf16 and cast the result.
+  Gate: `scripts/test-router-fp32-out-sm12x.py`.
+
 ## v0.8.0 runtime changes
 
 v0.8.0 changes the served default to Brandon's uniform-K4 checkpoint and
