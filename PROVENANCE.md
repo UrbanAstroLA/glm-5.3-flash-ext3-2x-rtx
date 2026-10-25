@@ -132,6 +132,20 @@ v0.8.0 fail the four upstream regression tests for them in `tests/kernels/test_k
   token ids fell from 0.066 to 0.010 for positions below 2,044, and from 0.031 to 0.019 beyond 2,048, where tokens
   decoded under the bug still sit in the cache.
 
+## Correctness fixes after v0.9.1
+
+Each script edits the installed vLLM tree at the end of the second patch chain, validates every anchor before
+writing, compiles the result, replaces files atomically and is a no-op when already applied. Each has a CPU
+regression gate in `scripts/`; `--expect-unpatched` reproduces the defect on v0.9.1.
+
+- `port-kpool-tail-positions-glm53.py` (upstream vllm-project/vllm#53906 and #59528): `MambaHybridModelState`
+  now passes `positions` to `build_attn_metadata`, so the kpool tail group gets its circular mapping
+  (`own_block * ring + pos % ring`) instead of the generic one, which sent tail writes from position 8 to the
+  null block or to a block id left by the start-up warm-up. Rows on the null block get PAD, and the mapping
+  is copied into the persistent per-group slot-mapping buffer so FULL CUDA graph replays read it. With
+  positions present, the B12X sparse-MLA metadata builder takes causal lengths from `positions + 1` for
+  batches that are not pure single-token decode, as upstream does. Gate: `scripts/test-kpool-tail-positions.py`.
+
 ## v0.8.0 runtime changes
 
 v0.8.0 changes the served default to Brandon's uniform-K4 checkpoint and
