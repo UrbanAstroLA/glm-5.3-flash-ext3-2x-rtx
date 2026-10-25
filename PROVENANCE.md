@@ -161,6 +161,10 @@ regression gate in `scripts/`; `--expect-unpatched` reproduces the defect on v0.
   enabled on compute capability 12.x, where the router previously ran in bf16 and cast the result.
   Gate: `scripts/test-router-fp32-out-sm12x.py`.
 
+- `port-exl3-routed-swiglu-limit.py`: the EXL3 MoE method passes `layer.swiglu_limit` (10 for GLM-5.3-Flash)
+  to the B12x projection-mixed plan and to `compile_mixed_trellis`; the routed experts were unclamped.
+  Gate: `scripts/test-exl3-routed-swiglu-limit.py`.
+
 ## v0.8.0 runtime changes
 
 v0.8.0 changes the served default to Brandon's uniform-K4 checkpoint and
